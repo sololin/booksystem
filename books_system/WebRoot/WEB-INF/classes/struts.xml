@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <!--<constant name="struts.enable.DynamicMethodInvocation" value="false" />-->
+    <constant name="struts.devMode" value="true" />
+    <!--<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>-->
+    <package name="ajax" namespace="/j" extends="json-default">  
+        <action name="ajaxLogin" class="com.bjsxt.book.action.JsonAction" method="execute">  
+            <!-- 返回类型为json 在sjon-default中定义 -->  
+            <result type="json">
+              <param name="root">result</param>
+           </result>
+                <!-- root的值对应要返回的值的属性 -->  
+                <!-- 这里的result值即是 对应action中的 result -->  
+            
+        </action>  
+    </package>  
+    <package name="admin" namespace="/admin" extends="struts-default">
+    
+      
+        <action name="index" class="com.bjsxt.book.action.BookAction" method="index">
+           <result>/admin/index.html</result>
+        </action>
+        <action name="*-*" class="com.bjsxt.book.action.{1}Action" method="{2}">
+            <result>/admin/{1}-{2}.jsp</result>
+            <result name="input">/admin/{1}-{2}.jsp</result>
+        </action>
+         
+         <!--
+        <action name="Category" class="com.bjsxt.bbs2009.action.CategoryAction">
+            <result>/admin/Category-list.jsp</result>
+            <result name="add">/admin/Category-add.jsp</result>
+            <result name="update">/admin/Category-update.jsp</result>
+        </action>
+        -->
+    </package>
+    
+    
+	 <package name="front" namespace="/" extends="struts-default">
+       <!--    <default-action-ref name="Book-list"></default-action-ref>
+        <action name="Book-list" class="com.bjsxt.book.action.BookAction" method="list">
+            <result>/index1.jsp</result>
+        </action>
+        -->
+		<action name="*-*" class="com.bjsxt.book.action.{1}Action" method="{2}">
+            <result>/{1}-{2}.jsp</result>
+            <result name="input">/{1}-{2}.jsp</result>
+            <result name="error">/User-login.jsp</result>
+            <result name="login">/main.jsp</result>
+            
+        </action>
+    </package>
+    
+    <package name="category" namespace="/category" extends="struts-default">
+         
+		<action name="*-*" class="com.bjsxt.book.action.{1}Action" method="{2}">
+            <result>/category/{1}-{2}.jsp</result>
+            <result name="input">/category/{1}-{2}.jsp</result>
+        </action>
+    </package>
+    
+
+</struts>
